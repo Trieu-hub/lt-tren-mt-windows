@@ -6,42 +6,43 @@ namespace Lab01_02
 {
     internal class Student
     {
-        //1. Field
-        private int id;
-        private string name;
-        private int age;
+        private string Id;
+        private string Name;
+        private int Age;
 
-        //2. Property
-        public int Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
-        public int Age { get => age; set => age = value; }
+        // Properties
+        public string Id1 { get => Id; set => Id = value; }
+        public string Name1 { get => Name; set => Name = value; }
+        public int Age1 { get => Age; set => Age = value; }
 
-        //3. Constructor
+        // Constructor
         public Student()
         {
+            Id = "";
+            Name = "";
+            Age = 0;
         }
-
-        public Student(int id, string name, int age)
+        public Student(string Id, string Name, int Age)
         {
-            this.id = id;
-            this.name = name;
-            this.age = age;
+            this.Id = Id;
+            this.Name = Name;
+            this.Age = Age;
         }
 
-        //4. Methods
+        // Method
         public void Input()
         {
-            Console.Write("Nhập Mã số: ");
-            Id = int.Parse(Console.ReadLine()); //ép sang kiểu int
-            Console.Write("Nhập Tên: ");
+            Console.Write("Nhap MSSV: ");
+            Id = Console.ReadLine();
+            Console.Write("Nhap ho va ten SV: ");
             Name = Console.ReadLine();
-            Console.Write("Nhập Tuổi: ");
+            Console.Write("Nhap tuoi SV: ");
             Age = int.Parse(Console.ReadLine());
         }
-
-        public void Show()
+        public void show()
         {
-            Console.WriteLine("Mã số: {0}  Tên: {1}  Tuổi: {2}", this.Id, this.Name, this.Age);
+            Console.WriteLine("MSSV:{0} Ho Ten:{1} Tuoi:{2}", this.Id, this.Name, this.Age);
         }
+
     }
 }

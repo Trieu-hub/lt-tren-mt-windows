@@ -1,4 +1,6 @@
-using System.Text;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lab01_02
 {
@@ -6,66 +8,157 @@ namespace Lab01_02
     {
         static void Main(string[] args)
         {
-            // Hiển thị và nhập được tiếng Việt có dấu
-            Console.OutputEncoding = Encoding.UTF8;
-            Console.InputEncoding = Encoding.UTF8;
-
-            // Nhập danh sách ít nhất 5 học sinh từ bàn phím
             List<Student> studentList = new List<Student>();
-
-            Console.Write("Nhập số lượng học sinh (ít nhất 5): ");
-            int n = int.Parse(Console.ReadLine());
-            while (n < 5)
+            bool exit = false;
+            while (!exit)
             {
-                Console.Write("Phải có ít nhất 5 học sinh, nhập lại: ");
-                n = int.Parse(Console.ReadLine());
+                Console.WriteLine("========== MENU ==========");
+                Console.WriteLine("1. Them sinh vien");
+                Console.WriteLine("2. Hien thi danh sach sinh vien");
+                Console.WriteLine("3. Tim sinh vien tu 15 den 18 tuoi");
+                Console.WriteLine("4. Tim sinh vien co ten bat dau bang A");
+                Console.WriteLine("5. Tinh tong tuoi sinh vien");
+                Console.WriteLine("6. Tim sinh vien co tuoi lon nhat");
+                Console.WriteLine("7. Sap xep sinh vien theo tuoi tang dan");
+                Console.WriteLine("0. Thoat");
+                Console.Write("Chon chuc nang (0-7): ");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        AddStudent(studentList);
+                        break;
+
+                    case "2":
+                        ShowStudentList(studentList);
+                        break;
+
+                    case "3":
+                        FindStudentAge15To18(studentList);
+                        break;
+
+                    case "4":
+                        FindStudentNameA(studentList);
+                        break;
+
+                    case "5":
+                        SumAge(studentList);
+                        break;
+
+                    case "6":
+                        FindOldestStudent(studentList);
+                        break;
+
+                    case "7":
+                        SortStudentByAge(studentList);
+                        break;
+
+                    case "0":
+                        exit = true;
+                        Console.WriteLine("Ket thuc chuong trinh.");
+                        break;
+
+                    default:
+                        Console.WriteLine("Tuy chon khong hop le. Vui long chon lai.");
+                        break;
+                }
+
+                Console.WriteLine();
             }
-
-            for (int i = 0; i < n; i++)
-            {
-                Console.WriteLine("\n=== Nhập thông tin học sinh thứ {0} ===", i + 1);
-                Student student = new Student();
-                student.Input();
-                studentList.Add(student);
-            }
-            Console.WriteLine();
-
-            // a. In toàn bộ danh sách học sinh
-            Console.WriteLine("=== a. Danh sách toàn bộ học sinh ===");
-            DisplayStudentList(studentList);
-
-            // b. Học sinh có tuổi từ 15 đến 18
-            Console.WriteLine("\n=== b. Học sinh có tuổi từ 15 đến 18 ===");
-            var studentsAge15To18 = studentList.Where(s => s.Age >= 15 && s.Age <= 18).ToList();
-            DisplayStudentList(studentsAge15To18);
-
-            // c. Học sinh có tên bắt đầu bằng chữ "A"
-            Console.WriteLine("\n=== c. Học sinh có tên bắt đầu bằng chữ \"A\" ===");
-            var studentsNameA = studentList.Where(s => s.Name.StartsWith("A")).ToList();
-            DisplayStudentList(studentsNameA);
-
-            // d. Tổng tuổi của tất cả học sinh
-            Console.WriteLine("\n=== d. Tổng tuổi của tất cả học sinh ===");
-            int totalAge = studentList.Sum(s => s.Age);
-            Console.WriteLine("Tổng tuổi: {0}", totalAge);
-
-            // e. Học sinh có tuổi lớn nhất
-            Console.WriteLine("\n=== e. Học sinh có tuổi lớn nhất ===");
-            int maxAge = studentList.Max(s => s.Age);
-            var oldestStudents = studentList.Where(s => s.Age == maxAge).ToList();
-            DisplayStudentList(oldestStudents);
-
-            // f. Sắp xếp danh sách theo tuổi tăng dần
-            Console.WriteLine("\n=== f. Danh sách học sinh sắp xếp theo tuổi tăng dần ===");
-            var sortedStudents = studentList.OrderBy(s => s.Age).ToList();
-            DisplayStudentList(sortedStudents);
         }
 
-        static void DisplayStudentList(List<Student> studentList)
+        // 1. Them sinh vien
+        static void AddStudent(List<Student> studentList)
         {
+            Console.WriteLine("Nhap thong tin sinh vien:");
+
+            Student student = new Student();
+
+            student.Input();
+
+            studentList.Add(student);
+
+            Console.WriteLine("Them sinh vien thanh cong!");
+        }
+
+        // 2. Hien thi danh sach
+        static void ShowStudentList(List<Student> studentList)
+        {
+            Console.WriteLine("Danh sach sinh vien:");
+
             foreach (Student student in studentList)
             {
-                student.Show();
+                student.show();
+            }
+        }
+
+        // 3. Tim sinh vien tu 15 den 18 tuoi
+        static void FindStudentAge15To18(List<Student> studentList)
+        {
+            Console.WriteLine("Sinh vien tu 15 den 18 tuoi:");
+
+            var result = studentList
+                .Where(student => student.Age1 >= 15 && student.Age1 <= 18);
+
+            foreach (Student student in result)
+            {
+                student.show();
+            }
+        }
+
+        // 4. Tim sinh vien co ten bat dau bang A
+        static void FindStudentNameA(List<Student> studentList)
+        {
+            Console.WriteLine("Sinh vien co ten bat dau bang A:");
+
+            var result = studentList
+                .Where(student => student.Name1.StartsWith("A"));
+
+            foreach (Student student in result)
+            {
+                student.show();
+            }
+        }
+
+        // 5. Tinh tong tuoi
+        static void SumAge(List<Student> studentList)
+        {
+            Console.WriteLine("Tong tuoi cua tat ca sinh vien:");
+
+            int sum = studentList.Sum(student => student.Age1);
+
+            Console.WriteLine("Tong tuoi = " + sum);
+        }
+
+        // 6. Tim sinh vien co tuoi lon nhat
+        static void FindOldestStudent(List<Student> studentList)
+        {
+            Console.WriteLine("Sinh vien co tuoi lon nhat:");
+
+            int maxAge = studentList.Max(student => student.Age1);
+
+            var result = studentList
+                .Where(student => student.Age1 == maxAge);
+
+            foreach (Student student in result)
+            {
+                student.show();
+            }
+        }
+
+        // 7. Sap xep tuoi tang dan
+        static void SortStudentByAge(List<Student> studentList)
+        {
+            Console.WriteLine("Danh sach sinh vien sap xep tuoi tang dan:");
+
+            var result = studentList
+                .OrderBy(student => student.Age1);
+
+            foreach (Student student in result)
+            {
+                student.show();
             }
         }
     }
