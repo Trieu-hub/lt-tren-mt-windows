@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>Lab03_02</RootNamespace>
+    <AssemblyName>Lab03-02</AssemblyName>
+  </PropertyGroup>
+
+</Project>
